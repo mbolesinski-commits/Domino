@@ -39,7 +39,7 @@ class Leaderboard:
         CellsAmountCheck = CellsUndrawn + CellsOnTable
         for index, arg in enumerate(player_data):
             player_stats[index] = arg
-            CellsAmountCheck += arg[1]
+            CellsAmountCheck += arg[2]
 
         self.df_single_games = pd.concat([pd.DataFrame(
             [[player_stats[0][0], player_stats[0][1], player_stats[0][2], player_stats[1][0], player_stats[1][1], player_stats[1][2], player_stats[2][0], player_stats[2][1], player_stats[2][2],
@@ -47,7 +47,7 @@ class Leaderboard:
               OpeningPlayer, Winner, Game_Score, GameTurns,
               GameSeed, CellsUndrawn,
               CellsOnTable,
-              CellsAmountCheck,
+              CellsAmountCheck == 28,
               ]], columns=self.df_single_games.columns), self.df_single_games], ignore_index=True)
 
     def update_player_df(self, player_name, score):

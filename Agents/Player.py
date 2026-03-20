@@ -4,7 +4,7 @@ class ClassPlayer:
         self.cell_count = cell_count
         self.name = name
         self.cell_list = []
-        self.drew_count = 0
+        self.drew_count = -5
         self.moves_count = 0
         self.last_chosen_piece = None
         self.all_cell_sides = []
@@ -15,7 +15,7 @@ class ClassPlayer:
     def clear_player(self):
         self.cell_count = 0
         self.cell_list = []
-        self.drew_count = 0
+        self.drew_count = -5
         self.moves_count = 0
         self.last_chosen_piece = None
         self.all_cell_sides = []

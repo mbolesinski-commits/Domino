@@ -86,7 +86,9 @@ class Main():
             self.game_leaderboard.update_player_df(
                 game_winner_name, player_points)
             self.game_leaderboard.add_game_to_df(
-                Player_1=list_of_players_names[0], Player_2=list_of_players_names[1], Player_3=list_of_players_names[2], Player_4=list_of_players_names[3], Player_5=list_of_players_names[4], Winner=game_winner_name, Game_Score=self.game_leaderboard.game_dict[game_winner_name], Game_Rounds=games_played, Game_seed=game_seed)
+                Player_1=list_of_players_names[0], Player_2=list_of_players_names[1], Player_3=list_of_players_names[
+                    2], Player_4=list_of_players_names[3], Player_5=list_of_players_names[4],
+                Winner=game_winner_name, Game_Score=self.game_leaderboard.game_dict[game_winner_name], Game_Rounds=games_played, Game_seed=game_seed)
             self.print_game_results(
                 game_winner_name, player_points, games_played)
 
