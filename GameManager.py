@@ -15,6 +15,8 @@ class ClassGameManager:
         self.player_pieces_count = []
         self.round_count = 0
         self.game_winner_name = None
+        self.first_player = None
+        self.draw_count = 0
 
     def say_hello(self):
         print('hello')
@@ -112,6 +114,7 @@ class ClassGameManager:
         if not chosen_piece:
             if len(self.Board.free_pieces_list) > 0:
                 player.draw_piece(self.Board.return_rand_free_piece())
+                self.draw_count += 1
                 chosen_piece, target_endpoint_number = player.player_turn(
                     endpoints_list, self.Board.uniq_endpoints_list, self.Board.locked_pieces_list, self.Board.connected_pieces_list)
         return chosen_piece, target_endpoint_number

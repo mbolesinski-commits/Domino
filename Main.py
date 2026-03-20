@@ -8,6 +8,7 @@ from Agents.CellCounting import ClsCellCounting
 import random
 from itertools import combinations
 import pandas as pd
+import xlsxwriter
 
 
 class Main():
@@ -36,6 +37,18 @@ class Main():
                                                                 how_many_cells=5, print_game_moves=False)
             self.game_leaderboard.add_points_to_dict(
                 game_winner_name, player_points)
+
+            cells_on_table = len(self.GM.Board.locked_pieces_list) + \
+                len(self.GM.Board.connected_pieces_list)
+            cells_undrawn = len(self.GM.Board.free_pieces_list)
+            player_data = [(player.name, player.drew_count, player.cell_count)
+                           for player in list_of_players]
+            self.game_leaderboard.add_single_game_to_df(
+                OpeningPlayer=self.GM.first_player.name, Winner=game_winner_name, Game_Score=self.game_leaderboard.game_dict[
+                    game_winner_name], GameTurns=self.GM.round_count, GameSeed=game_seed,
+                CellsUndrawn=cells_undrawn, CellsOnTable=cells_on_table, player_data=player_data
+            )
+
             games_played += 1
             game_seed += 1
         return game_winner_name, player_points, games_played, self.GM.player_list
@@ -112,6 +125,12 @@ if __name__ == '__main__':
 
     with pd.ExcelWriter('D:\Projekty\Domino\Excel\Pierwsze_wyniki.xlsx') as writer:
         MyGame.game_leaderboard.df_games.to_excel(
-            writer, sheet_name='Game',)
+            writer, sheet_name='Game', index=False)
         MyGame.game_leaderboard.df_players.to_excel(
-            writer,  sheet_name='Players')
+            writer,  sheet_name='Players', index=False)
+        MyGame.game_leaderboard.df_single_games.to_excel(
+            writer,  sheet_name='All games details', index=False)
+        workbook = writer.book
+        writer.sheets['Game'].autofit()
+        writer.sheets['Players'].autofit()
+        writer.sheets['All games details'].autofit()
