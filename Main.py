@@ -1,6 +1,6 @@
 import GameManager
 from Leaderboard import Leaderboard
-from Agents.Random_choice import ClsRandomAgent
+from Agents.RandomChoice import ClsRandomAgent
 from Agents.HighestPossible import ClsHighestPossibleAgent
 from Agents.LowestPossible import ClsLowestPossibleAgent
 from Agents.MinUniq import ClsMinUniqAgent
