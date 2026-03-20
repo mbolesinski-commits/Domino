@@ -1,0 +1,2 @@
+Do zmiany:
+    1. Pozamieniać wielokrotne IF x(IF y) na if x and y 
