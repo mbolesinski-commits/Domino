@@ -42,10 +42,9 @@ class Main():
                 len(self.GM.Board.connected_pieces_list)
             cells_undrawn = len(self.GM.Board.free_pieces_list)
             player_data = [(player.name, player.drew_count, player.cell_count)
-                           for player in list_of_players]
+                           for player in self.GM.player_list]
             self.game_leaderboard.add_single_game_to_df(
-                OpeningPlayer=self.GM.first_player.name, Winner=game_winner_name, Game_Score=self.game_leaderboard.game_dict[
-                    game_winner_name], GameTurns=self.GM.round_count, GameSeed=game_seed,
+                GamesPlayed=games_played, OpeningPlayer=self.GM.first_player.name, Winner=game_winner_name, Game_Score=player_points, GameTurns=self.GM.round_count, GameSeed=game_seed,
                 CellsUndrawn=cells_undrawn, CellsOnTable=cells_on_table, player_data=player_data
             )
 
@@ -80,14 +79,14 @@ class Main():
 
             game_winner_name, player_points, games_played, this_game_player_list = self.play_whole_game(
                 list_of_players, game_seed, random_players)
-            list_of_players_names = [None, None, None, None, None]
-            for index, player in enumerate(this_game_player_list):
-                list_of_players_names[index] = player.name
+            list_of_players_names = [None, None, None, None]
+            for index, player_number in enumerate(player_list):
+                list_of_players_names[index] = self.list_of_all_players[player_number].name
             self.game_leaderboard.update_player_df(
                 game_winner_name, player_points)
             self.game_leaderboard.add_game_to_df(
                 Player_1=list_of_players_names[0], Player_2=list_of_players_names[1], Player_3=list_of_players_names[
-                    2], Player_4=list_of_players_names[3], Player_5=list_of_players_names[4],
+                    2], Player_4=list_of_players_names[3],
                 Winner=game_winner_name, Game_Score=self.game_leaderboard.game_dict[game_winner_name], Game_Rounds=games_played, Game_seed=game_seed)
             self.print_game_results(
                 game_winner_name, player_points, games_played)
@@ -95,7 +94,7 @@ class Main():
     def play_all_possible_games(self, how_many_loops_for_setup: int):
         list_of_all_players_index = [
             x for x, y in enumerate(self.list_of_all_players_names)]
-        for combination_count in range(3, 6):
+        for combination_count in range(2, 5):
             player_list = list(combinations(
                 list_of_all_players_index, combination_count))
             for player_combination in player_list:
@@ -136,3 +135,6 @@ if __name__ == '__main__':
         writer.sheets['Game'].autofit()
         writer.sheets['Players'].autofit()
         writer.sheets['All games details'].autofit()
+        writer.sheets['Game'].freeze_panes(1, 0)
+        writer.sheets['Players'].freeze_panes(1, 0)
+        writer.sheets['All games details'].freeze_panes(1, 0)

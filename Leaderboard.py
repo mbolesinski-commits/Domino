@@ -1,17 +1,23 @@
 import pandas as pd
 
+""" 
+Issues:
+- ostatni gracz jest otwierającym a nie pierwszy
+"""
+
 
 class Leaderboard:
     def __init__(self, possible_players_names_list):
+        self.whole_game_index = 0
         self.df_players = pd.DataFrame(
             columns=['Player Name', 'Score', 'Won Games'])
         self.df_games = pd.DataFrame(
             columns=['Player_1', 'Player_2', 'Player_3',
-                     'Player_4', 'Player5', 'Winner', 'GameScore', 'Game Rounds', 'Game Seed']
+                     'Player_4', 'Winner', 'End Score', 'Game Rounds', 'Seed']
         )
         self.df_single_games = pd.DataFrame(
-            columns=['Player_1_name', 'Player_1_draws', 'Player_1_cells_left', 'Player_2_name', 'Player_2_draws', 'Player_2_cells_left', 'Player_3_name', 'Player_3_draws', 'Player_3_cells_left', 'Player_4_name', 'Player_4_draws',
-                     'Player_4_cells_left', 'Player_5_name', 'Player_5_draws', 'Player_5_cells_left', 'OpeningPlayer', 'Winner', 'GameScore', 'GameTurns', 'GameSeed', 'CellsUndrawn', 'CellsOnTable', 'CellsAmountCheck']
+            columns=['GameIndex', 'Player_1_name', 'Player_1_draws', 'Player_1_cells_left', 'Player_2_name', 'Player_2_draws', 'Player_2_cells_left', 'Player_3_name', 'Player_3_draws', 'Player_3_cells_left', 'Player_4_name', 'Player_4_draws',
+                     'Player_4_cells_left', 'OpeningPlayer', 'Winner', 'PlayerCount', 'Score', 'Turns', 'Seed', 'CellsUndrawn', 'CellsOnTable', 'CellsAmountCheck']
         )
         self.game_dict = {}
         for player in possible_players_names_list:
@@ -27,28 +33,25 @@ class Leaderboard:
         self.game_dict[player_name] += points
 
     def add_game_to_df(self, Player_1, Player_2, Player_3,
-                       Player_4, Player_5, Winner, Game_Score, Game_Rounds, Game_seed):
-        self.df_games = pd.concat([pd.DataFrame(
+                       Player_4, Winner, Game_Score, Game_Rounds, Game_seed):
+        self.df_games = pd.concat([self.df_games, pd.DataFrame(
             [[Player_1, Player_2, Player_3,
-              Player_4, Player_5, Winner, Game_Score, Game_Rounds, Game_seed]], columns=self.df_games.columns), self.df_games], ignore_index=True)
+              Player_4, Winner, Game_Score, Game_Rounds, Game_seed]], columns=self.df_games.columns)], ignore_index=True)
 
-    def add_single_game_to_df(self, OpeningPlayer, Winner, Game_Score, GameTurns, GameSeed, CellsUndrawn, CellsOnTable, player_data: list):
+    def add_single_game_to_df(self, GamesPlayed, OpeningPlayer, Winner, Game_Score, GameTurns, GameSeed, CellsUndrawn, CellsOnTable, player_data: list):
         player_stats = [[None, None, None], [None, None, None], [
-            None, None, None], [None, None, None], [None, None, None]]
+            None, None, None], [None, None, None]]
 
         CellsAmountCheck = CellsUndrawn + CellsOnTable
         for index, arg in enumerate(player_data):
             player_stats[index] = arg
             CellsAmountCheck += arg[2]
-
-        self.df_single_games = pd.concat([pd.DataFrame(
-            [[player_stats[0][0], player_stats[0][1], player_stats[0][2], player_stats[1][0], player_stats[1][1], player_stats[1][2], player_stats[2][0], player_stats[2][1], player_stats[2][2],
-              player_stats[3][0], player_stats[3][1], player_stats[3][2], player_stats[4][0], player_stats[4][1], player_stats[4][2],
-              OpeningPlayer, Winner, Game_Score, GameTurns,
-              GameSeed, CellsUndrawn,
-              CellsOnTable,
-              CellsAmountCheck == 28,
-              ]], columns=self.df_single_games.columns), self.df_single_games], ignore_index=True)
+        if GamesPlayed == 0:
+            self.whole_game_index += 1
+        self.df_single_games = pd.concat([self.df_single_games, pd.DataFrame(
+            [[self.whole_game_index, player_stats[0][0], player_stats[0][1], player_stats[0][2], player_stats[1][0], player_stats[1][1], player_stats[1][2], player_stats[2][0], player_stats[2][1], player_stats[2][2],
+                player_stats[3][0], player_stats[3][1], player_stats[3][2],
+                OpeningPlayer, Winner, len(player_data), Game_Score, GameTurns, GameSeed, CellsUndrawn, CellsOnTable, CellsAmountCheck == 28,]], columns=self.df_single_games.columns)], ignore_index=True)
 
     def update_player_df(self, player_name, score):
         self.df_players.loc[self.df_players['Player Name']
