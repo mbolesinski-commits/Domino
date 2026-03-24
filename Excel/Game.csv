@@ -1,0 +1,26 @@
+Player_1,Player_2,Player_3,Player_4,Winner,End Score,Game Rounds,Seed
+Whateva,Rocket,,,Rocket,103,11,0
+Whateva,Krecik,,,Whateva,102,7,0
+Whateva,Diogenes,,,Diogenes,113,15,0
+Whateva,Protokół Zgredek,,,Protokół Zgredek,112,12,0
+Rocket,Krecik,,,Krecik,113,17,0
+Rocket,Diogenes,,,Rocket,112,21,0
+Rocket,Protokół Zgredek,,,Protokół Zgredek,101,23,0
+Krecik,Diogenes,,,Diogenes,110,12,0
+Krecik,Protokół Zgredek,,,Protokół Zgredek,113,15,0
+Diogenes,Protokół Zgredek,,,Protokół Zgredek,102,26,0
+Whateva,Rocket,Krecik,,Rocket,115,12,0
+Whateva,Rocket,Diogenes,,Whateva,104,12,0
+Whateva,Rocket,Protokół Zgredek,,Protokół Zgredek,113,16,0
+Whateva,Krecik,Diogenes,,Whateva,101,8,0
+Whateva,Krecik,Protokół Zgredek,,Whateva,104,12,0
+Whateva,Diogenes,Protokół Zgredek,,Protokół Zgredek,103,7,0
+Rocket,Krecik,Diogenes,,Rocket,114,10,0
+Rocket,Krecik,Protokół Zgredek,,Krecik,123,14,0
+Rocket,Diogenes,Protokół Zgredek,,Protokół Zgredek,103,13,0
+Krecik,Diogenes,Protokół Zgredek,,Protokół Zgredek,125,5,0
+Whateva,Rocket,Krecik,Diogenes,Rocket,106,6,0
+Whateva,Rocket,Krecik,Protokół Zgredek,Whateva,132,5,0
+Whateva,Rocket,Diogenes,Protokół Zgredek,Diogenes,119,7,0
+Whateva,Krecik,Diogenes,Protokół Zgredek,Protokół Zgredek,124,8,0
+Rocket,Krecik,Diogenes,Protokół Zgredek,Rocket,134,5,0
